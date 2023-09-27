@@ -1,65 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Calculator for Cstream project</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
     <style>
-        input[type="button"] {
-            width: 50px;
-            height: 50px;
-            font-size: 20px;
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .calculator {
+            width: 300px;
+            margin: 0 auto;
+            background-color: #dbb715;
+            border: 1px solid #d41515;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .output {
+            font-size: 24px;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+
+        .button {
+            padding: 10px;
+            text-align: center;
+            background-color: #11ce41;
+            border: 1px solid #080808;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #5718a8;
         }
     </style>
 </head>
 <body>
-    <table>
-        <tr>
-            <td colspan="4">
-                <input type="text" id="display" readonly>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="button" value="7" onclick="appendToDisplay('7')"></td>
-            <td><input type="button" value="8" onclick="appendToDisplay('8')"></td>
-            <td><input type="button" value="9" onclick="appendToDisplay('9')"></td>
-            <td><input type="button" value="/" onclick="appendToDisplay('/')"></td>
-        </tr>
-        <tr>
-            <td><input type="button" value="4" onclick="appendToDisplay('4')"></td>
-            <td><input type="button" value="5" onclick="appendToDisplay('5')"></td>
-            <td><input type="button" value="6" onclick="appendToDisplay('6')"></td>
-            <td><input type="button" value="*" onclick="appendToDisplay('*')"></td>
-        </tr>
-        <tr>
-            <td><input type="button" value="1" onclick="appendToDisplay('1')"></td>
-            <td><input type="button" value="2" onclick="appendToDisplay('2')"></td>
-            <td><input type="button" value="3" onclick="appendToDisplay('3')"></td>
-            <td><input type="button" value="-" onclick="appendToDisplay('-')"></td>
-        </tr>
-        <tr>
-            <td><input type="button" value="0" onclick="appendToDisplay('0')"></td>
-            <td><input type="button" value="C" onclick="clearDisplay()"></td>
-            <td><input type="button" value="=" onclick="calculate()"></td>
-            <td><input type="button" value="+" onclick="appendToDisplay('+')"></td>
-        </tr>
-    </table>
+    <div class="calculator">
+        <div class="output" id="output">0</div>
+        <div class="buttons">
+            <div class="button" onclick="appendToOutput('7')">7</div>
+            <div class="button" onclick="appendToOutput('8')">8</div>
+            <div class="button" onclick="appendToOutput('9')">9</div>
+            <div class="button" onclick="appendToOutput('+')">+</div>
+            <div class="button" onclick="appendToOutput('4')">4</div>
+            <div class="button" onclick="appendToOutput('5')">5</div>
+            <div class="button" onclick="appendToOutput('6')">6</div>
+            <div class="button" onclick="appendToOutput('-')">-</div>
+            <div class="button" onclick="appendToOutput('1')">1</div>
+            <div class="button" onclick="appendToOutput('2')">2</div>
+            <div class="button" onclick="appendToOutput('3')">3</div>
+            <div class="button" onclick="appendToOutput('*')">*</div>
+            <div class="button" onclick="appendToOutput('0')">0</div>
+            <div class="button" onclick="clearOutput()">C</div>
+            <div class="button" onclick="calculateResult()">=</div>
+            <div class="button" onclick="appendToOutput('/')">/</div>
+        </div>
+    </div>
 
     <script>
-        function appendToDisplay(value) {
-            document.getElementById('display').value += value;
+        let output = document.getElementById("output");
+        let currentInput = "";
+
+        function appendToOutput(value) {
+            currentInput += value;
+            output.innerText = currentInput;
         }
 
-        function clearDisplay() {
-            document.getElementById('display').value = '';
+        function clearOutput() {
+            currentInput = "";
+            output.innerText = "0";
         }
 
-        function calculate() {
+        function calculateResult() {
             try {
-                var result = eval(document.getElementById('display').value);
-                document.getElementById('display').value = result;
+                currentInput = eval(currentInput);
+                output.innerText = currentInput;
             } catch (error) {
-                document.getElementById('display').value = 'Error';
+                output.innerText = "Error";
             }
         }
     </script>
 </body>
 </html>
+
